@@ -14,7 +14,7 @@ import {Message} from 'element-ui'
 import website from '@/config/website';
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-import {Base64} from 'js-base64';
+// import {Base64} from 'js-base64';
 import {baseUrl} from '@/config/env';
 
 axios.defaults.timeout = 10000;

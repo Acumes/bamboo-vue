@@ -1,5 +1,5 @@
 import request from '@/router/axios';
-import {baseUrl} from '@/config/env';
+// import {baseUrl} from '@/config/env';
 
 export const loginByUsername = (account, password, verificationCode) => request({
   url: '/login',
