@@ -1,6 +1,6 @@
 import request from '@/router/axios';
 
-export const getList = (current, size, data) => {
+export const getList = (data) => {
   return request({
     url: '/basic/list',
     method: 'post',

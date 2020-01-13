@@ -248,7 +248,13 @@
         this.page.pageSize = pageSize;
       },
       onLoad(page, params = {}) {
-        getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
+        this.query = {
+          code : params.code,
+          pageNo:page.currentPage,
+          pageSize: page.pageSize,
+          name : params.name
+        }
+        getList( this.query).then(res => {
           const data = res.data.data;
           this.page.total = data.total;
           this.data = data.list;
