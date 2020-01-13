@@ -25,14 +25,6 @@
                    @click="handleDelete">删 除
         </el-button>
       </template>
-      <template slot-scope="{row}"
-                slot="roleId">
-        <el-tag>{{row.roleName}}</el-tag>
-      </template>
-      <template slot-scope="{row}"
-                slot="deptId">
-        <el-tag>{{row.deptName}}</el-tag>
-      </template>
     </avue-crud>
   </basic-container>
 </template>
@@ -44,7 +36,7 @@
     remove,
     update,
     add
-  } from "@/api/system/user";
+  } from "@/api/system/basic";
   import {getDeptTree} from "@/api/system/dept";
   import {getRoleTree} from "@/api/system/role";
   import {mapGetters} from "vuex";
@@ -52,22 +44,6 @@
 
   export default {
     data() {
-      const validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          callback();
-        }
-      };
-      const validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.form.password) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
       return {
         form: {},
         selectionList: [],
@@ -90,126 +66,49 @@
           dialogHeight: 450,
           column: [
             {
-              label: "登录账号",
-              prop: "account",
+              label: "编码",
+              prop: "code",
+              search: true,
               rules: [{
                 required: true,
-                message: "请输入登录账号",
+                message: "请输入编码",
                 trigger: "blur"
               }],
               span: website.tenantMode ? 12 : 24,
             },
             {
-              label: '密码',
-              prop: 'password',
-              hide: true,
-              editDisplay: false,
-              viewDisplay: false,
-              rules: [{required: true, validator: validatePass, trigger: 'blur'}]
-            },
-            {
-              label: '确认密码',
-              prop: 'password2',
-              hide: true,
-              editDisplay: false,
-              viewDisplay: false,
-              rules: [{required: true, validator: validatePass2, trigger: 'blur'}]
-            },
-            {
-              label: "用户昵称",
+              label: "名称",
               prop: "name",
+              search: true,
               rules: [{
                 required: true,
-                message: "请输入用户昵称",
+                message: "请输入名称",
                 trigger: "blur"
               }]
             },
             {
-              label: "用户姓名",
-              prop: "realName",
+              label: "当前价格",
+              prop: "currentPrice",
               rules: [{
                 required: true,
-                message: "请输入用户姓名",
+                message: "请输入当前价格",
                 trigger: "blur"
               }]
             },
             {
-              label: "所属角色",
-              prop: "roleId",
-              multiple: true,
-              type: "tree",
-              dicData: [],
-              props: {
-                label: "title"
-              },
-              slot: true,
+              label: "目标价格",
+              prop: "targetPrice",
               rules: [{
                 required: true,
-                message: "请选择所属角色",
-                trigger: "click"
+                message: "请输入当前价格",
+                trigger: "blur"
               }]
             },
             {
-              label: "所属部门",
-              prop: "deptId",
-              type: "tree",
-              multiple: true,
-              dicData: [],
-              props: {
-                label: "title"
-              },
-              slot: true,
-              rules: [{
-                required: true,
-                message: "请选择所属部门",
-                trigger: "click"
-              }]
+              label: "所属概念",
+              prop: "concept"
             },
-            {
-              label: "手机号码",
-              prop: "phone",
-              overHidden: true
-            },
-            {
-              label: "电子邮箱",
-              prop: "email",
-              hide: true,
-              overHidden: true
-            },
-            {
-              label: "用户性别",
-              prop: "sex",
-              type: "select",
-              dicData: [
-                {
-                  label: "男",
-                  value: 1
-                },
-                {
-                  label: "女",
-                  value: 2
-                },
-                {
-                  label: "未知",
-                  value: 3
-                }
-              ],
-              hide: true
-            },
-            {
-              label: "用户生日",
-              type: "date",
-              prop: "birthday",
-              format: "yyyy-MM-dd hh:mm:ss",
-              valueFormat: "yyyy-MM-dd hh:mm:ss",
-              hide: true
-            },
-            {
-              label: "账号状态",
-              prop: "statusName",
-              hide: true,
-              display: false
-            }
+
           ]
         },
         data: []
@@ -249,8 +148,6 @@
     },
     methods: {
       rowSave(row, loading, done) {
-        row.deptId = row.deptId.join(",");
-        row.roleId = row.roleId.join(",");
         add(row).then(() => {
           loading();
           this.onLoad(this.page);
@@ -354,7 +251,7 @@
         getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
           const data = res.data.data;
           this.page.total = data.total;
-          this.data = data.records;
+          this.data = data.list;
         });
       }
     }
