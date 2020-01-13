@@ -1,19 +1,15 @@
 import request from '@/router/axios';
 
-export const getList = (current, size, params) => {
+export const getList = (current, size, data) => {
   return request({
-    url: '/api/blade-system/menu/list',
-    method: 'get',
-    params: {
-      ...params,
-      current,
-      size,
-    }
+    url: '/menu/list',
+    method: 'post',
+    data:data
   })
 }
 export const remove = (ids) => {
   return request({
-    url: '/api/blade-system/menu/remove',
+    url: '/menu/remove',
     method: 'post',
     params: {
       ids,
@@ -23,7 +19,7 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/api/blade-system/menu/submit',
+    url: '/menu/add',
     method: 'post',
     data: row
   })
@@ -31,7 +27,7 @@ export const add = (row) => {
 
 export const update = (row) => {
   return request({
-    url: '/api/blade-system/menu/submit',
+    url: '/menu/update',
     method: 'post',
     data: row
   })
@@ -39,10 +35,10 @@ export const update = (row) => {
 
 export const getMenu = (id) => {
   return request({
-    url: '/api/blade-system/menu/detail',
+    url: '/menu/detail/'+id,
     method: 'get',
     params: {
-      id,
+
     }
   })
 }

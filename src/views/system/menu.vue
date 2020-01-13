@@ -50,6 +50,7 @@
           currentPage: 1,
           total: 0
         },
+        queryData:{},
         option: {
           tip: false,
           dialogWidth: "60%",
@@ -86,10 +87,11 @@
               label: "上级菜单",
               prop: "parentId",
               type: "tree",
-              dicUrl: "/api/blade-system/menu/tree",
+              dicUrl: "/menu/tree",
               hide: true,
               props: {
-                label: "title"
+                label: "title",
+                parentId:"id"
               },
               rules: [
                 {
@@ -248,6 +250,7 @@
     },
     methods: {
       rowSave(row, loading, done) {
+        console.log(row)
         add(row).then(() => {
           loading();
           this.onLoad(this.page);
@@ -338,7 +341,10 @@
         this.page.pageSize = pageSize;
       },
       onLoad(page, params = {}) {
-        getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
+        this.queryData = {
+          name:params.name
+        }
+        getList(page.currentPage, page.pageSize, this.queryData).then(res => {
           this.data = res.data.data;
         });
       }

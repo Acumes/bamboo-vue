@@ -12,7 +12,7 @@ export const loginByUsername = (account, password, verificationCode) => request(
 })
 
 export const getButtons = () => request({
-  url: '/api/blade-system/menu/buttons',
+  url: '/menu/buttons',
   method: 'get'
 });
 
@@ -27,7 +27,7 @@ export const refeshToken = () => request({
 })
 
 export const getMenu = () => request({
-  url: '/api/blade-system/menu/routes',
+  url: '/menu/routes',
   method: 'get'
 });
 

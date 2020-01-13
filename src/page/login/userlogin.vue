@@ -137,6 +137,7 @@
               loading.close();
             }).catch(() => {
               loading.close()
+              this.handleGetImg()
             });
           }
         });
