@@ -108,6 +108,14 @@
               label: "所属概念",
               prop: "concept"
             },
+            {
+              label: "备注",
+              prop: "remark",
+              type: "textarea",
+              span: 24,
+              minRows: 6,
+              hide: true
+            }
 
           ]
         },
